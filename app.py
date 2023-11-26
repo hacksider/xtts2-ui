@@ -90,14 +90,14 @@ with st.sidebar:
         string = html.unescape(string)
         # Generate a short UUID
         short_uuid = str(uuid.uuid4())[:8]
-        fl_name='outputs/' + spk + "-" + short_uuid +'.wav'
+        fl_name = f'outputs/{spk}-{short_uuid}.wav'
         output_file = Path(fl_name)
         tts.tts_to_file(
             text=string,
             speed=speed,
             file_path=output_file,
-            speaker_wav=[f"{this_dir}/targets/" +spk + ".wav"],
-            language=languages[english]
+            speaker_wav=[f"{this_dir}/targets/{spk}.wav"],
+            language=languages[english],
         )
 
         return output_file
@@ -106,7 +106,7 @@ if st.button('Convert'):
     # Run TTS
     st.success('Converting ... please wait ...')
     output_file=gen_voice(text, speaker_name)
-    st.write(f'Target voice:'+speaker_name)
+    st.write(f'Target voice:{speaker_name}')
     # st.success('Converted to audio successfully')
     audio_file = open(output_file, 'rb')
     audio_bytes = audio_file.read()
